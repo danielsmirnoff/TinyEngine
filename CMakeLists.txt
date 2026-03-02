@@ -1,11 +1,26 @@
-﻿cmake_minimum_required(VERSION 3.31)
+﻿cmake_minimum_required(VERSION 3.22)
+set(CMAKE_C_COMPILER "C:/msys64/ucrt64/bin/gcc.exe")
+set(CMAKE_CXX_COMPILER "C:/msys64/ucrt64/bin/g++.exe")
+project(TinyEngine CXX)
 
-find_package(SDL3 REQUIRED)
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_SUPPRESS_REGENERATION true) # disable ZERO_CHECK target creation
 
-add_executable (TinyEngine "TinyEngine.cpp" "TinyEngine.h")
+include_directories(include src)
+link_directories(lib)
 
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET TinyEngine PROPERTY CXX_STANDARD 20)
-endif()
+file(GLOB_RECURSE SOURCES "src/*.cpp" "main.cpp")
+set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS ${SOURCES})
+add_executable(TinyEngine ${SOURCES})
 
-target_link_libraries(TinyEngine PRIVATE SDL3::SDL3)
+if (APPLE)
+    target_link_libraries(TinyEngine libSDL3.dylib libSDL3_Mixer.dylib)
+elseif (WIN32)
+    target_link_libraries(TinyEngine SDL3.lib)
+endif ()
+
+add_custom_command(TARGET TinyEngine POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/resources
+    $<TARGET_FILE_DIR:TinyEngine>/resources
+)
