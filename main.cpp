@@ -1,4 +1,6 @@
 ﻿#include "main.h"
+#include "sprite.h"
+
 SDL_Renderer* renderer = nullptr;
 
 entity e;
@@ -55,10 +57,13 @@ int main()
 }
 
 void awake() {
+	SDL_Log("\nAwake");
 	g_ecs.addEntity(std::make_shared<entity>(e));
+	e.addComponent(std::make_shared<sprite>());
 }
 
 void start() {
+	SDL_Log("\nStart");
 	g_ecs.start();
 }
 

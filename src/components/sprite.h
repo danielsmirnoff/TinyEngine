@@ -1,9 +1,9 @@
 #pragma once
 #include <SDL3/SDL.h>
-#include "../../main.h"
+#include "main.h"
 #include "component.h"
 
-class sprite : component {
+class sprite : public component {
     public:
     sprite() = default;
     ~sprite() = default;

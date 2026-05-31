@@ -2,8 +2,8 @@
 using namespace std;
 #include <memory>
 #include <SDL3/SDL.h>
-#include "utils/map.h"
-#include "components/component.h"
+#include "map.h"
+#include "component.h"
 
 class entity {
 	public:
@@ -15,7 +15,9 @@ class entity {
 		void cleanup();
 		void addComponent(std::shared_ptr<component> c);
 		void removeComponent(int index);
-	private:
+	protected:
 		map<std::shared_ptr<component>> components;
 
 };
+
+#include "map.cpp"

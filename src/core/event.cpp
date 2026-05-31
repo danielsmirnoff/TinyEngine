@@ -1,4 +1,5 @@
 #include "event.h"
+#include <SDL3/SDL.h>
 
 void event::notify() {
 	for (const auto& pair : listeners)

@@ -1,0 +1,50 @@
+#once
+
+// Configuration
+.AppName = 'myapp'
+
+// Local Paths
+.SDLInclude = 'F:/dev/lib/SDL3-3.4.0/include'
+.SDLLibPath = 'F:/dev/lib/SDL3-3.4.0/lib/x64'
+.CompilerPath = 'C:/msys64/mingw64/bin/g++.exe'
+
+// Linking all include paths
+.IncludeDirs = {
+    '.'
+    'src/'
+    'src/utils/'
+    'src/core/'
+    'src/components/'
+    '$SDLInclude$'
+}
+.IncludeOptions = ''
+ForEach( .Dir in .IncludeDirs )
+{
+    ^IncludeOptions + ' -I"$Dir$"'
+}
+
+Compiler( 'Compiler-GCC' )
+{
+    .Executable = '$CompilerPath$'
+}
+
+ObjectList( 'all-objs' )
+{
+    .Compiler                 = 'Compiler-GCC'
+    .CompilerInputPath        = '.'
+    .CompilerInputPattern     = '*.cpp'
+    .CompilerInputPathRecurse = true
+    .CompilerInputExcludePath = { './build', './.git' }
+    .CompilerOutputPath       = 'build/obj/'
+    .CompilerOptions          = '-c %1 -o %2 -std=c++17 -Wall $IncludeOptions$'
+}
+
+Executable( '$AppName$' )
+{
+    .Libraries      = { 'all-objs' }
+    .LinkerOutput   = 'build/$AppName$.exe'
+    .Linker         = '$CompilerPath$'
+    .LinkerOptions  = '%1 -o %2 -L$SDLLibPath$ -lSDL3 -lmingw32'
+}
+
+Alias( 'all' ) { .Targets = { '$AppName$' } }

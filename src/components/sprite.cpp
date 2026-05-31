@@ -1,7 +1,10 @@
-#include "components/sprite.h"
+#include <stdio.h>
+#include "sprite.h"
 
 void sprite::start() {
-
+	SDL_Log("Sprite Start");
+	setTexture("assets/test.png");
+	SDL_Log("\nSetting texture");
 }
 
 void sprite::update() {

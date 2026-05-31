@@ -1,5 +1,6 @@
+#pragma once
 #include <SDL3/SDL.h>
-#include "src/core/ecs.h"
+#include "ecs.h"
 using namespace std;
 
 static SDL_Window *window = nullptr;

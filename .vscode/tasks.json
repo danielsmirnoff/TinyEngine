@@ -1,16 +1,16 @@
 {
-    "label": "Build & Run",
-    "type": "shell",
-    "command": "cmake --build out\\build\\x64-debug && out\\build\\x64-debug\\TinyEngine.exe",
-    "options": {
-        "shell": {
-            "executable": "cmd.exe",
-            "args": ["/c"]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "FASTBuild",
+            "type": "shell",
+            "command": "C:/lib/FASTBuild/fbuild.exe",
+            "args": ["all"],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"]
         }
-    },
-    "group": {
-        "kind": "build",
-        "isDefault": true
-    },
-    "problemMatcher": "$gcc"
+    ]
 }
