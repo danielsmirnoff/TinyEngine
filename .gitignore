@@ -1,7 +1,5 @@
-#Folders to Exclude
-.vs/
-.vscode/
-build/
+.vscode
+.vs
 
-*.fdb
-
+/[Bb]uild
+/out
